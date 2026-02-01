@@ -3,75 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yontan Investments | Shop</title>
+    <title>YONTAN INVESTMENTS | Premium Boutique</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #8a2be2; --accent: #ff69b4; --success: #25D366; --bg: #f8f5ff; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; }
-        .header { background: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { color: var(--primary); font-weight: bold; font-size: 1.2rem; }
-        .cart-icon { font-size: 1.5rem; color: var(--primary); cursor: pointer; position: relative; }
-        #cart-count { position: absolute; top: -10px; right: -10px; background: var(--accent); color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; }
-        .card { background: white; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 10px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .card h3 { font-size: 0.85rem; margin: 5px 0; color: #333; height: 40px; overflow: hidden; }
-        .price { color: var(--primary); font-weight: bold; font-size: 1rem; margin-bottom: 10px; display: block; }
-        .add-to-cart { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: 600; width: 100%; }
+        :root { --main: #2d0050; --gold: #d4af37; --white: #ffffff; --bg: #0b0114; --text-muted: #bda8cf; }
+        body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* Modals */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 20px; width: 90%; max-width: 400px; border-radius: 15px; max-height: 80vh; overflow-y: auto; }
-        .checkout-btn { background: var(--success); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; margin-top: 15px; font-size: 1rem; }
-        .mpesa-logo { width: 120px; display: block; margin: 0 auto 15px; }
-        .input-field { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        header { background: var(--main); padding: 15px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); }
+        .logo { font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
         
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 100; }
+        .hero { text-align: center; padding: 40px 20px; background: linear-gradient(rgba(11, 1, 20, 0.8), rgba(11, 1, 20, 0.8)), url('https://i.postimg.cc/SjNTnQ1T/mysecretcase-christian-de-fica-prodotto1.png'); background-size: cover; border-bottom: 1px solid #333; }
+        .hero h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .hero p { color: var(--gold); font-style: italic; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; padding: 15px; }
+        .card { background: #1a0a2e; border-radius: 12px; overflow: hidden; border: 1px solid #332244; display: flex; flex-direction: column; }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-info { padding: 12px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card h3 { font-size: 0.8rem; height: 32px; overflow: hidden; margin: 0; color: var(--white); }
+        .price { display: block; margin: 8px 0; font-weight: bold; color: var(--gold); font-size: 1.1rem; }
+        .buy-btn { background: var(--gold); color: #000; border: none; width: 100%; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
+        .cart-trigger { background: var(--gold); color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #1a0a2e; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; border: 1px solid var(--gold); color: white; max-height: 80vh; overflow-y: auto; }
+        .checkout-btn { background: #1ebc5d; color: white; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        
+        .social-group { position: fixed; bottom: 25px; left: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
+        .social-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.5); text-decoration: none; }
     </style>
 </head>
 <body>
 
-<div class="header">
+<header>
     <div class="logo">YONTAN INVESTMENTS</div>
-    <div class="cart-icon" onclick="toggleCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart-count">0</span>
+    <div class="cart-trigger" onclick="toggleCart()">
+        <i class="fas fa-shopping-bag"></i>
+        <span id="count">0</span>
     </div>
+</header>
+
+<div class="hero">
+    <h2>Premium Adult Boutique</h2>
+    <p>Discreet. Professional. Secure.</p>
 </div>
 
-<div class="products-grid" id="grid">
-    </div>
+<div class="products-grid" id="shop-grid"></div>
 
-<div class="modal" id="cartModal">
+<div class="modal" id="cartView">
     <div class="modal-content">
-        <h3 style="color:var(--primary);">Your Shopping Cart</h3>
-        <div id="cart-items" style="margin-top:15px;"></div>
-        <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
-        <p style="display:flex; justify-content:space-between; font-size:1.2rem;"><strong>Total:</strong> <strong>Ksh <span id="cart-total">0</span></strong></p>
-        <button class="checkout-btn" onclick="showPayment()">Proceed to Checkout</button>
-        <button onclick="toggleCart()" style="width:100%; margin-top:10px; border:none; background:none; color:gray; cursor:pointer;">Continue Shopping</button>
+        <h2 style="color:var(--gold)">Your Bag</h2>
+        <div id="items-list"></div>
+        <hr style="border:0; border-top:1px solid #332244; margin:20px 0">
+        <div style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:bold;">
+            <span>Total:</span>
+            <span id="total-val">Ksh 0</span>
+        </div>
+        <button class="checkout-btn" onclick="openPayment()">Secure Checkout</button>
+        <button onclick="toggleCart()" style="background:none; border:none; color:var(--text-muted); width:100%; margin-top:15px; cursor:pointer;">Continue Shopping</button>
     </div>
 </div>
 
-<div class="modal" id="paymentModal">
+<div class="modal" id="payView">
     <div class="modal-content" style="text-align:center;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" class="mpesa-logo">
-        <h4>Complete Your Order</h4>
-        <p style="font-size:0.9rem; color:#666;">Please pay the total to our Till Number:</p>
-        <div style="background:#f1f1f1; padding:15px; font-size:1.5rem; font-weight:bold; color:var(--primary); margin:10px 0; border-radius:8px;">TILL: 8174206</div>
-        <p style="font-size:0.8rem; margin-bottom:15px;">Steps: Lipa na M-Pesa > Buy Goods > Enter Till</p>
-        <input type="number" id="phone" class="input-field" placeholder="Your Phone Number (e.g. 07...)">
-        <button class="checkout-btn" onclick="finishPayment()">Confirm Payment & Order</button>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" style="width:120px; margin-bottom:20px;">
+        <h3>Lipa Na M-Pesa</h3>
+        <p style="color:var(--text-muted)">Send total to Buy Goods Till:</p>
+        <div style="background:var(--main); padding:20px; border-radius:15px; font-size:1.8rem; font-weight:900; color:var(--gold); margin:15px 0;">8174206</div>
+        <input type="number" id="cust-phone" placeholder="Enter Your Phone Number" style="width:100%; padding:15px; border-radius:10px; border:1px solid #332244; background:#0b0114; color:white; margin-bottom:15px;">
+        <button class="checkout-btn" onclick="confirmOrder()">Confirm Order & Pay</button>
     </div>
 </div>
 
-<a href="https://wa.me/254705018792?text=Hello%20Yontan%20Investments%2C%20I%20need%20assistance" class="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<div class="social-group">
+    <a href="https://www.instagram.com/YOUR_INSTAGRAM_HANDLE" target="_blank" class="social-btn" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/254705018792" class="social-btn" style="background: #25D366;"><i class="fab fa-whatsapp"></i></a>
+</div>
 
 <script>
-    const products = [
+    const inventory = [
         { id: 1, name: "Luxury Wand Massager", price: 3500, img: "https://i.postimg.cc/hhSwV1vz/6136227096.jpg" },
         { id: 2, name: "Suction Vibrator", price: 2800, img: "https://i.postimg.cc/hhPyX4Zj/99422620-eeb2-11ea-b778-69a588c6bf62-webp.jpg" },
         { id: 3, name: "Endurance Delay Spray", price: 1500, img: "https://i.postimg.cc/rRmQ3gR5/7071865386.jpg" },
@@ -91,67 +101,57 @@
         { id: 17, name: "Advanced G-Spot Vibrator", price: 3100, img: "https://i.postimg.cc/ZvRV2jyt/73f5c2f4059421ddd5565291200bf3c6ebdb02bc-original.jpg" }
     ];
 
-    let cart = [];
+    let basket = [];
+    const grid = document.getElementById('shop-grid');
 
-    function renderProducts() {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = products.map(p => `
+    inventory.forEach(p => {
+        grid.innerHTML += `
             <div class="card">
                 <img src="${p.img}">
-                <div class="card-body">
+                <div class="card-info">
                     <h3>${p.name}</h3>
                     <span class="price">Ksh ${p.price.toLocaleString()}</span>
-                    <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+                    <button class="buy-btn" onclick="add(${p.id})">ADD TO BAG</button>
                 </div>
-            </div>
-        `).join('');
-    }
+            </div>`;
+    });
 
-    function addToCart(id) {
-        const product = products.find(p => p.id === id);
-        cart.push(product);
-        updateCart();
-        alert(`${product.name} added to cart!`);
-    }
-
-    function updateCart() {
-        document.getElementById('cart-count').innerText = cart.length;
-        let total = 0;
-        document.getElementById('cart-items').innerHTML = cart.map((item, index) => {
-            total += item.price;
-            return `<div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem;">
-                        <span>${item.name}</span>
-                        <span>Ksh ${item.price.toLocaleString()}</span>
-                    </div>`;
-        }).join('');
-        document.getElementById('cart-total').innerText = total.toLocaleString();
+    function add(id) {
+        const p = inventory.find(i => i.id === id);
+        basket.push(p);
+        document.getElementById('count').innerText = basket.length;
+        alert(p.name + ' added to bag.');
     }
 
     function toggleCart() {
-        let m = document.getElementById('cartModal');
-        m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+        const v = document.getElementById('cartView');
+        v.style.display = (v.style.display === 'flex') ? 'none' : 'flex';
+        renderBasket();
     }
 
-    function showPayment() {
-        if(cart.length === 0) return alert('Your cart is empty!');
-        document.getElementById('cartModal').style.display = 'none';
-        document.getElementById('paymentModal').style.display = 'flex';
+    function renderBasket() {
+        let total = 0;
+        document.getElementById('items-list').innerHTML = basket.map(i => {
+            total += i.price;
+            return `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${i.name}</span><span>Ksh ${i.price}</span></div>`;
+        }).join('');
+        document.getElementById('total-val').innerText = 'Ksh ' + total.toLocaleString();
     }
 
-    function finishPayment() {
-        const phone = document.getElementById('phone').value;
-        if(phone.length < 10) return alert('Please enter a valid phone number');
-        
-        // Prepare WhatsApp summary for customer service
-        const items = cart.map(i => i.name).join(', ');
-        const total = document.getElementById('cart-total').innerText;
-        const msg = encodeURIComponent(`New Order from ${phone}: ${items}. Total: Ksh ${total}. Please confirm my payment to Till 8174206.`);
-        
-        alert('Order placed! Redirecting you to confirm with Customer Service.');
+    function openPayment() {
+        if(basket.length === 0) return alert('Your bag is empty!');
+        document.getElementById('cartView').style.display = 'none';
+        document.getElementById('payView').style.display = 'flex';
+    }
+
+    function confirmOrder() {
+        const ph = document.getElementById('cust-phone').value;
+        if(ph.length < 10) return alert('Please enter a valid phone number');
+        const items = basket.map(b => b.name).join(', ');
+        const total = document.getElementById('total-val').innerText;
+        const msg = encodeURIComponent(`ORDER: ${items}. Total: ${total}. My Number: ${ph}. I am paying to Till 8174206 now.`);
         window.location.href = `https://wa.me/254705018792?text=${msg}`;
     }
-
-    renderProducts();
 </script>
 
 </body>
