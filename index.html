@@ -501,7 +501,6 @@ window.onload = function() {
     window.location.href = "https://www.google.com";
   };
 };
-</script>
 </head>
 <body>
     <!-- Age Verification Modal -->
@@ -661,4 +660,17 @@ window.onload = function() {
                     
                     <div class="contact-card">
                         <i class="fab fa-whatsapp contact-icon"></i>
+        <script>
+  document.getElementById('confirmAge').onclick = function() {
+    document.getElementById('ageVerification').style.display = 'none';
+  };
+
+  document.getElementById('denyAge').onclick = function() {
+    alert("You must be 18 or older to view this site.");
+    window.location.href = "https://www.google.com";
+  };
+</script>
+</body>
+</html>
+        
                         
