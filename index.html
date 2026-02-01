@@ -3,113 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yontan Investments | Cart & Checkout</title>
+    <title>Yontan Investments | Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #8a2be2; --accent: #ff69b4; --success: #25D366; }
-        body { font-family: sans-serif; background: #f8f5ff; margin: 0; padding-bottom: 80px; }
-        .header { background: white; padding: 15px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        :root { --primary: #8a2be2; --accent: #ff69b4; --success: #25D366; --bg: #f8f5ff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; }
+        .header { background: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { color: var(--primary); font-weight: bold; font-size: 1.2rem; }
         .cart-icon { font-size: 1.5rem; color: var(--primary); cursor: pointer; position: relative; }
         #cart-count { position: absolute; top: -10px; right: -10px; background: var(--accent); color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
-        .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
-        .card { background: white; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; padding-bottom: 10px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; }
+        .card { background: white; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
         .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card h3 { font-size: 0.9rem; padding: 5px; margin: 0; }
-        .price { color: var(--primary); font-weight: bold; padding: 0 5px; }
-        .add-to-cart { background: var(--primary); color: white; border: none; padding: 8px; margin: 5px; border-radius: 4px; cursor: pointer; }
+        .card-body { padding: 10px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card h3 { font-size: 0.85rem; margin: 5px 0; color: #333; height: 40px; overflow: hidden; }
+        .price { color: var(--primary); font-weight: bold; font-size: 1rem; margin-bottom: 10px; display: block; }
+        .add-to-cart { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: 600; width: 100%; }
         
-        /* Modal Styles */
+        /* Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 20px; width: 90%; max-width: 400px; border-radius: 10px; }
-        .checkout-btn { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
-        .mpesa-logo { width: 100px; display: block; margin: 0 auto 10px; }
+        .modal-content { background: white; padding: 20px; width: 90%; max-width: 400px; border-radius: 15px; max-height: 80vh; overflow-y: auto; }
+        .checkout-btn { background: var(--success); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; margin-top: 15px; font-size: 1rem; }
+        .mpesa-logo { width: 120px; display: block; margin: 0 auto 15px; }
+        .input-field { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
         
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 100; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <strong>Yontan Investments</strong>
+    <div class="logo">YONTAN INVESTMENTS</div>
     <div class="cart-icon" onclick="toggleCart()">
         <i class="fas fa-shopping-cart"></i>
         <span id="cart-count">0</span>
     </div>
 </div>
 
-<div class="products-grid">
-    <div class="card">
-        <img src="https://i.postimg.cc/hhSwV1vz/6136227096.jpg">
-        <h3>Luxury Wand Massager</h3>
-        <span class="price">Ksh 3,500</span>
-        <button class="add-to-cart" onclick="addToCart('Luxury Wand', 3500)">Add to Cart</button>
-    </div>
-    <div class="card">
-        <img src="https://i.postimg.cc/hhPyX4Zj/99422620-eeb2-11ea-b778-69a588c6bf62-webp.jpg">
-        <h3>Suction Vibrator</h3>
-        <span class="price">Ksh 2,800</span>
-        <button class="add-to-cart" onclick="addToCart('Suction Vibrator', 2800)">Add to Cart</button>
-    </div>
+<div class="products-grid" id="grid">
     </div>
 
 <div class="modal" id="cartModal">
     <div class="modal-content">
-        <h3>Your Cart</h3>
-        <div id="cart-items"></div>
-        <hr>
-        <p><strong>Total: Ksh <span id="cart-total">0</span></strong></p>
+        <h3 style="color:var(--primary);">Your Shopping Cart</h3>
+        <div id="cart-items" style="margin-top:15px;"></div>
+        <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+        <p style="display:flex; justify-content:space-between; font-size:1.2rem;"><strong>Total:</strong> <strong>Ksh <span id="cart-total">0</span></strong></p>
         <button class="checkout-btn" onclick="showPayment()">Proceed to Checkout</button>
-        <button onclick="toggleCart()" style="width:100%; margin-top:10px; border:none; background:none; color:gray;">Close</button>
+        <button onclick="toggleCart()" style="width:100%; margin-top:10px; border:none; background:none; color:gray; cursor:pointer;">Continue Shopping</button>
     </div>
 </div>
 
 <div class="modal" id="paymentModal">
     <div class="modal-content" style="text-align:center;">
         <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" class="mpesa-logo">
-        <h4>Pay via Lipa Na M-Pesa</h4>
-        <p>Go to M-Pesa > Lipa na M-Pesa > Buy Goods</p>
-        <div style="background:#f1f1f1; padding:10px; font-size:1.2rem; font-weight:bold; margin:10px 0;">TILL: 8174206</div>
-        <input type="number" id="phone" placeholder="Enter Phone Number" style="width:100%; padding:10px; margin-bottom:10px;">
-        <button class="checkout-btn" onclick="finishPayment()">Confirm Payment</button>
+        <h4>Complete Your Order</h4>
+        <p style="font-size:0.9rem; color:#666;">Please pay the total to our Till Number:</p>
+        <div style="background:#f1f1f1; padding:15px; font-size:1.5rem; font-weight:bold; color:var(--primary); margin:10px 0; border-radius:8px;">TILL: 8174206</div>
+        <p style="font-size:0.8rem; margin-bottom:15px;">Steps: Lipa na M-Pesa > Buy Goods > Enter Till</p>
+        <input type="number" id="phone" class="input-field" placeholder="Your Phone Number (e.g. 07...)">
+        <button class="checkout-btn" onclick="finishPayment()">Confirm Payment & Order</button>
     </div>
 </div>
 
-<a href="https://wa.me/254705018792?text=I%20need%20customer%20support" class="whatsapp-float">
+<a href="https://wa.me/254705018792?text=Hello%20Yontan%20Investments%2C%20I%20need%20assistance" class="whatsapp-float">
     <i class="fab fa-whatsapp"></i>
 </a>
 
 <script>
+    const products = [
+        { id: 1, name: "Luxury Wand Massager", price: 3500, img: "https://i.postimg.cc/hhSwV1vz/6136227096.jpg" },
+        { id: 2, name: "Suction Vibrator", price: 2800, img: "https://i.postimg.cc/hhPyX4Zj/99422620-eeb2-11ea-b778-69a588c6bf62-webp.jpg" },
+        { id: 3, name: "Endurance Delay Spray", price: 1500, img: "https://i.postimg.cc/rRmQ3gR5/7071865386.jpg" },
+        { id: 4, name: "Crystal Glass Toy", price: 3200, img: "https://i.postimg.cc/vgX00CT7/7042074579.jpg" },
+        { id: 5, name: "Realistic Male Stroker", price: 2500, img: "https://i.postimg.cc/grkSxctH/6071229693.jpg" },
+        { id: 6, name: "Dual Action Rabbit", price: 3800, img: "https://i.postimg.cc/fkT2VWq7/7e73f9be361ab3be60897e6dea509d8f30253d5f-original.jpg" },
+        { id: 7, name: "Vibrating Egg (Remote)", price: 2200, img: "https://i.postimg.cc/kDX12MY8/7659435860.jpg" },
+        { id: 8, name: "Premium Silicone Lube", price: 1400, img: "https://i.postimg.cc/4HdBqwHb/6113294871.jpg" },
+        { id: 9, name: "Anal Training Kit", price: 2900, img: "https://i.postimg.cc/GT2qVzT8/orig-(2).jpg" },
+        { id: 10, name: "Gentleman's Pump", price: 4500, img: "https://i.postimg.cc/ctHX2Ttp/681c896134217f692f9aad7dca895d515bef2f05-original-(1).jpg" },
+        { id: 11, name: "Vibrating Silicone Ring", price: 1800, img: "https://i.postimg.cc/4HdBqwH5/6389040198.jpg" },
+        { id: 12, name: "Premium Prostate Massager", price: 3400, img: "https://i.postimg.cc/fkT2VWqx/6720835992.jpg" },
+        { id: 13, name: "Remote Control Love Egg", price: 2600, img: "https://i.postimg.cc/V06Dp40G/6896441057.jpg" },
+        { id: 14, name: "Textured Pleasure Sleeve", price: 1950, img: "https://i.postimg.cc/Z0K7WYs0/71Fig-Yv-GZFL.jpg" },
+        { id: 15, name: "Wireless App-Controlled", price: 4800, img: "https://i.postimg.cc/7J6mdXJp/7219790849.jpg" },
+        { id: 16, name: "Inflatable Bouncer Toy", price: 5500, img: "https://i.postimg.cc/SjNTnQ1g/7355733866.jpg" },
+        { id: 17, name: "Advanced G-Spot Vibrator", price: 3100, img: "https://i.postimg.cc/ZvRV2jyt/73f5c2f4059421ddd5565291200bf3c6ebdb02bc-original.jpg" }
+    ];
+
     let cart = [];
-    function addToCart(name, price) {
-        cart.push({name, price});
-        updateCart();
+
+    function renderProducts() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = products.map(p => `
+            <div class="card">
+                <img src="${p.img}">
+                <div class="card-body">
+                    <h3>${p.name}</h3>
+                    <span class="price">Ksh ${p.price.toLocaleString()}</span>
+                    <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+                </div>
+            </div>
+        `).join('');
     }
+
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        cart.push(product);
+        updateCart();
+        alert(`${product.name} added to cart!`);
+    }
+
     function updateCart() {
         document.getElementById('cart-count').innerText = cart.length;
-        let html = '';
         let total = 0;
-        cart.forEach((item, index) => {
-            html += `<p>${item.name} - Ksh ${item.price}</p>`;
+        document.getElementById('cart-items').innerHTML = cart.map((item, index) => {
             total += item.price;
-        });
-        document.getElementById('cart-items').innerHTML = html;
-        document.getElementById('cart-total').innerText = total;
+            return `<div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem;">
+                        <span>${item.name}</span>
+                        <span>Ksh ${item.price.toLocaleString()}</span>
+                    </div>`;
+        }).join('');
+        document.getElementById('cart-total').innerText = total.toLocaleString();
     }
+
     function toggleCart() {
         let m = document.getElementById('cartModal');
-        m.style.display = (m.style.display == 'flex') ? 'none' : 'flex';
+        m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
     }
+
     function showPayment() {
-        if(cart.length == 0) return alert('Cart is empty');
+        if(cart.length === 0) return alert('Your cart is empty!');
         document.getElementById('cartModal').style.display = 'none';
         document.getElementById('paymentModal').style.display = 'flex';
     }
+
     function finishPayment() {
-        let phone = document.getElementById('phone').value;
-        if(phone.length < 10) return alert('Enter a valid phone number');
-        alert('Order Received! Please complete payment to Till 8174206. We are processing your delivery.');
-        location.reload();
+        const phone = document.getElementById('phone').value;
+        if(phone.length < 10) return alert('Please enter a valid phone number');
+        
+        // Prepare WhatsApp summary for customer service
+        const items = cart.map(i => i.name).join(', ');
+        const total = document.getElementById('cart-total').innerText;
+        const msg = encodeURIComponent(`New Order from ${phone}: ${items}. Total: Ksh ${total}. Please confirm my payment to Till 8174206.`);
+        
+        alert('Order placed! Redirecting you to confirm with Customer Service.');
+        window.location.href = `https://wa.me/254705018792?text=${msg}`;
     }
+
+    renderProducts();
 </script>
 
 </body>
