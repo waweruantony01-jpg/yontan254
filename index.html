@@ -9,27 +9,21 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root { --primary-color: #8a2be2; --secondary-color: #4b0082; --accent-color: #ff69b4; --light-bg: #f8f5ff; --dark-text: #333; --light-text: #666; --white: #ffffff; --shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
         body { background-color: var(--light-bg); color: var(--dark-text); line-height: 1.6; }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .container { width: 95%; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
         header { background-color: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; }
         .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
-        .logo { display: flex; align-items: center; gap: 10px; }
-        .logo h1 { font-size: 1.8rem; color: var(--primary-color); }
-        .logo-icon { color: var(--primary-color); font-size: 2rem; }
-        nav ul { display: flex; list-style: none; gap: 25px; }
-        nav a { text-decoration: none; color: var(--dark-text); font-weight: 600; font-size: 1rem; }
+        .logo h1 { font-size: 1.4rem; color: var(--primary-color); }
         .age-verification { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .age-modal { background-color: var(--white); padding: 40px; border-radius: 10px; max-width: 500px; text-align: center; }
-        .age-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
-        .btn { padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; }
-        .btn-primary { background-color: var(--primary-color); color: white; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?auto=format&fit=crop&w=1200&q=80'); color: white; text-align: center; padding: 80px 20px; margin-bottom: 40px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px 0; }
-        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); padding-bottom: 20px; text-align: center; }
+        .age-modal { background-color: var(--white); padding: 30px; border-radius: 10px; max-width: 90%; text-align: center; }
+        .btn { padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; }
+        .btn-primary { background-color: var(--primary-color); color: white; margin-top: 10px; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?auto=format&fit=crop&w=1200&q=80'); color: white; text-align: center; padding: 60px 20px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px 0; }
+        .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); text-align: center; display: flex; flex-direction: column; }
         .product-img { width: 100%; height: 250px; object-fit: cover; }
         .product-price { color: var(--primary-color); font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
-        .payment-section, .contact-section { background: white; padding: 40px; border-radius: 10px; margin: 40px 0; box-shadow: var(--shadow); }
+        .whatsapp-btn { background-color: #25D366; color: white; margin-bottom: 15px; width: 90%; align-self: center; }
         .till-number { background: var(--primary-color); color: white; padding: 15px; font-size: 1.5rem; text-align: center; font-weight: bold; border-radius: 5px; margin: 20px 0; }
-        .whatsapp-btn { background-color: #25D366; color: white; }
     </style>
 </head>
 <body>
@@ -38,90 +32,119 @@
         <div class="age-modal">
             <h2>Age Verification</h2>
             <p>You must be 18 or older to enter Yontan Investments.</p>
-            <div class="age-buttons">
-                <button class="btn btn-primary" id="confirmAge">I am 18+</button>
-                <button class="btn" id="denyAge">Exit</button>
-            </div>
+            <button class="btn btn-primary" id="confirmAge">I am 18+</button>
+            <button class="btn" id="denyAge" style="background:#eee;">Exit</button>
         </div>
     </div>
 
     <header>
         <div class="container header-container">
-            <div class="logo">
-                <i class="fas fa-gem logo-icon"></i>
-                <h1>Yontan Investments</h1>
-            </div>
-            <nav><ul><li><a href="#products">Products</a></li><li><a href="#payment">Order</a></li></ul></nav>
+            <div class="logo"><h1>Yontan Investments</h1></div>
+            <nav><a href="#payment" style="text-decoration:none; color:var(--primary-color); font-weight:bold;">TILL: 8174206</a></nav>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
             <h2>Premium Adult Products</h2>
-            <p>Discreet packaging and delivery across Kenya.</p>
-            <a href="#products" class="btn btn-primary">Browse Collection</a>
+            <p>Discreet packaging & delivery across Kenya.</p>
         </div>
     </section>
 
-    <section id="products" class="container">
-        <h2 style="text-align:center; color:var(--primary-color);">Our Best Sellers</h2>
-        <div class="products-grid" id="productsContainer">
-                        <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1584433144859-1fc3ab844153?auto=format&fit=crop&w=400" class="product-img">
-                <div style="padding:15px;">
-                    <h3>Classic Wand Massager</h3>
-                    <p class="product-price">Ksh 2,800</p>
-                    <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Classic%20Wand%20Massager" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
-                </div>
+    <main class="container">
+        <h2 style="text-align:center; margin-top:30px; color:var(--primary-color);">Our Collection</h2>
+        <div class="products-grid">
+            
+            <div class="product-card">
+                <img src="https://i.postimg.cc/hhSwV1vz/6136227096.jpg" class="product-img">
+                <h3>Luxury Wand Massager</h3>
+                <p class="product-price">Ksh 3,500</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Luxury%20Wand%20Massager" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400" class="product-img">
-                <div style="padding:15px;">
-                    <h3>Silicone Lubricant (100ml)</h3>
-                    <p class="product-price">Ksh 1,200</p>
-                    <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Silicone%20Lubricant" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
-                </div>
+                <img src="https://i.postimg.cc/hhPyX4Zj/99422620-eeb2-11ea-b778-69a588c6bf62-webp.jpg" class="product-img">
+                <h3>Suction Vibrator</h3>
+                <p class="product-price">Ksh 2,800</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Suction%20Vibrator" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&w=400" class="product-img">
-                <div style="padding:15px;">
-                    <h3>Suction Rose Toy</h3>
-                    <p class="product-price">Ksh 3,500</p>
-                    <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Rose%20Toy" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
-                </div>
+                <img src="https://i.postimg.cc/rRmQ3gR5/7071865386.jpg" class="product-img">
+                <h3>Endurance Delay Spray</h3>
+                <p class="product-price">Ksh 1,500</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Endurance%20Delay%20Spray" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=400" class="product-img">
-                <div style="padding:15px;">
-                    <h3>Endurance Delay Spray</h3>
-                    <p class="product-price">Ksh 1,500</p>
-                    <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Delay%20Spray" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
-                </div>
+                <img src="https://i.postimg.cc/vgX00CT7/7042074579.jpg" class="product-img">
+                <h3>Crystal Glass Toy</h3>
+                <p class="product-price">Ksh 3,200</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Crystal%20Glass%20Toy" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?auto=format&fit=crop&w=400" class="product-img">
-                <div style="padding:15px;">
-                    <h3>Dual-Action Rabbit</h3>
-                    <p class="product-price">Ksh 3,200</p>
-                    <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Rabbit%20Vibrator" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
-                </div>
+                <img src="https://i.postimg.cc/grkSxctH/6071229693.jpg" class="product-img">
+                <h3>Realistic Male Stroker</h3>
+                <p class="product-price">Ksh 2,500</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Realistic%20Male%20Stroker" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1570172619373-67751967262c?auto=format&fit=crop&w=400" class="product-img">
-                <div style="padding:15px;">
-                    <h3>Textured Male Stroker</h3>
-                    <p class="product-price">Ksh 2,200</p>
-                    <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Male%20Stroker" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
-                </div>
+                <img src="https://i.postimg.cc/fkT2VWq7/7e73f9be361ab3be60897e6dea509d8f30253d5f-original.jpg" class="product-img">
+                <h3>Dual Action Rabbit</h3>
+                <p class="product-price">Ksh 3,800</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Dual%20Action%20Rabbit" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
 
+            <div class="product-card">
+                <img src="https://i.postimg.cc/kDX12MY8/7659435860.jpg" class="product-img">
+                <h3>Vibrating Egg (Remote)</h3>
+                <p class="product-price">Ksh 2,200</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Vibrating%20Egg" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
             </div>
+
+            <div class="product-card">
+                <img src="https://i.postimg.cc/4HdBqwHb/6113294871.jpg" class="product-img">
+                <h3>Premium Silicone Lube</h3>
+                <p class="product-price">Ksh 1,400</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Silicone%20Lube" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.postimg.cc/GT2qVzT8/orig-(2).jpg" class="product-img">
+                <h3>Anal Training Kit</h3>
+                <p class="product-price">Ksh 2,900</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Anal%20Training%20Kit" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
+            </div>
+
+            <div class="product-card">
+                <img src="https://i.postimg.cc/ctHX2Ttp/681c896134217f692f9aad7dca895d515bef2f05-original-(1).jpg" class="product-img">
+                <h3>Gentleman's Pump</h3>
+                <p class="product-price">Ksh 4,500</p>
+                <a href="https://wa.me/254705018792?text=I%20want%20to%20order%20the%20Gentlemans%20Pump" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
+            </div>
+
         </div>
-    </section>
 
-    <
+        <section id="payment" class="payment-section">
+            <h3 style="text-align:center;">Payment Details</h3>
+            <div class="till-number">TILL NUMBER: 8174206</div>
+            <p style="text-align:center;">Pay via M-Pesa Buy Goods & Services.</p>
+        </section>
+    </main>
+
+    <footer style="text-align:center; padding:30px; color:var(--light-text);">
+        <p>&copy; 2026 Yontan Investments. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('confirmAge').onclick = function() {
+            document.getElementById('ageVerification').style.display = 'none';
+        };
+        document.getElementById('denyAge').onclick = function() {
+            window.location.href = "https://www.google.com";
+        };
+    </script>
+</body>
+</html>
